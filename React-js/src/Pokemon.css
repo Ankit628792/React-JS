@@ -1,0 +1,23 @@
+@media(max-width: 600px){
+    .pokemon{
+        width: 80% !important;
+        padding: 40px 30px !important;
+        margin-top: 100px;
+    }
+    .content{
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .imgBx{
+        margin-top: 10px !important;
+    }
+    h1{
+        font-size: 27px;
+    }
+ 
+}
+@media(max-width: 474px){
+    .btn{
+        margin-top: 10px !important;
+    }
+}

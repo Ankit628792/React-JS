@@ -1,0 +1,36 @@
+.searchbar{
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* .searchbar input{
+    margin-bottom: 30px;
+} */
+
+.imgBx{
+    width: 600px;
+    height: 400px;
+    margin: auto;
+    border-radius: 10px;
+}
+img{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 5px 5px 20px rgba(100,100,100,0.2),
+    -5px -5px 20px rgba(100,100,100,0.2);
+}
+
+@media(max-width: 600px){
+    .searchbar{
+        width: 90%;
+    }
+    .imgBx{
+        width: 90%;
+        margin: auto;
+        height: auto;
+    }
+}

@@ -1,0 +1,104 @@
+
+.weather{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #161623;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.weather::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#f00, #f0f);
+    clip-path: circle(30% at right 70%);
+}
+.weather::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#2196f3, #e91e63);
+    clip-path: circle(20% at 10% 10%);
+}
+
+.box{
+    position: relative;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    z-index: 2;
+}
+
+.box .input__data{
+    margin: 20px 0;
+}
+
+.box .MuiInputLabel-formControl,input {
+    color: #fff !important;
+}
+.box .MuiInput-underline:after{
+    border-bottom: 2px solid rgba(250,250,250, 0.42) !important;
+}
+.box .MuiInput-underline:before {
+    border-bottom: 1px solid rgba(250,250,250, 0.42) !important;
+}
+.box .btn{
+    margin-left: 20px !important;
+}
+.info{
+    padding: 10px 0;
+    color: #fff;
+}
+.info h1{
+    font-size: 40px;
+    line-height: 1.4;
+    text-transform: capitalize;
+}
+.info h1 i{
+    margin-right: 10px;
+}
+
+.info h2{
+    font-size: 30px;
+    line-height: 2;
+    font-weight: 500;
+}
+
+.info h3{
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.errormsg{
+    font-size: 30px;
+    line-height: 2;
+}
+
+@media(max-width: 600px){
+    .box{
+        width: 80%;
+    }
+}

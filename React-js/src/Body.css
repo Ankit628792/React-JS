@@ -1,0 +1,60 @@
+.note__area{
+    margin: 50px;
+    width: 100%;
+    position: relative;
+  }
+  .note__area .input__area{
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-left: -50px;
+  }
+  .note__area .input__area textarea{
+    height: 150px;
+    width: 600px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 20px;
+    line-height: 1.4;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .note__box{
+    width: 100%;
+    background: #eee;
+    min-height: 50vh;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media(max-width: 600px){
+    .makeStyles-search-6{
+      width: 30%;
+    }
+    .note__area{
+      margin: 50px 10px;
+    }
+    .note__area .input__area {
+      padding: 10px;
+      margin-left: 0;
+    }
+    .note__area .input__area textarea{
+      width: 100%;
+      padding: 16px;
+      line-height: 1.3;
+    }
+    .note__area .input__area .MuiButtonBase-root{
+      width: 70px;
+    height: 60px;
+    object-fit: cover;
+    }
+    
+  }
