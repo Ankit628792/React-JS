@@ -56,11 +56,13 @@ const postMessage = async (data) => {
     }
 }
 
-
+var userId = 'non-registered'
 const onSubmit = (data) => {
     setData(data);
-    console.log(data)
-        postMessage(data)
+    userData.userId ? userId = userData.userId : userId = userId 
+    const commentData = {userId, ...data}
+    console.log(commentData)
+        postMessage(commentData)
 };
 
 

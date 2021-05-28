@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 })
 const User = require('../model/userSchema');
 const Authenticate = require('../middleware/authenticate');
+const Comment = require('../model/userComment');
 
 router.post('/signup', async (req, res) => {
     const { fullname, email, password, cpassword } = req.body;
@@ -24,7 +25,8 @@ router.post('/signup', async (req, res) => {
         }else if(password !== cpassword){
             return res.status(422).json({ error: "Password doesn't matched" })
         }else{
-            const user = new User({fullname, email, password, cpassword});
+            const userId = new Date().getTime().toString();
+            const user = new User({userId, fullname, email, password, cpassword});
             try {
                 const userRegister = await user.save()
                 res.status(201).json({ message: "user registered successfully" });
@@ -80,8 +82,16 @@ router.get('/contact', Authenticate, (req,res) => {
     res.send(req.rootUser)
 })
 
-router.post('/comments', (req,res) => {
-    res.status(200).send('Message sent')
+router.post('/comments', async (req,res) => {
+    const {userId, fullname, email ,comment} = req.body;
+    try{    
+            const userComment = new Comment({userId, fullname, email, comment});
+            const commentRegistered = await userComment.save();        
+            res.status(200).send('Message sent')
+    }
+    catch (error) {
+        console.log(error)
+    }
 })
 
 

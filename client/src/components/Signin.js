@@ -57,7 +57,7 @@ const Signin = () => {
                             <span>Password</span>
                             <input type="password" {...register("password", {
                                 required: "Please enter Password",
-                                minLength: { value: 8, message: "Too short" }
+                                minLength: { value: 6, message: "Too short" }
                             })} />
                             {errors.password && <p>{errors.password.message}</p>}
                         </div>

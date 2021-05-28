@@ -23,7 +23,7 @@ const Signup = () => {
         console.log('data posted')
         
         const result = await res.json();
-        if (result.status !== 200) {
+        if (result.status !== 201) {
             window.alert('Invalid Registration !')
         }else{
             history.push('/signin')
