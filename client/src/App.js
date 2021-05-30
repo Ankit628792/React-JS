@@ -6,10 +6,11 @@ import About from './components/About'
 import Contact from './components/Contact'
 import Signin from './components/Signin'
 import Signup from './components/Signup'
-
+// import Table from './Table'
 function App() {
   return (
     <>
+      {/* <Table /> */}
       <Navbar />
 
       <Route exact path="/">

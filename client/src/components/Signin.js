@@ -1,39 +1,30 @@
 import React, { useState } from 'react'
-import { NavLink ,useHistory} from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import postData from '../requests/postData'
 
 const Signin = () => {
 
     const history = useHistory()
-    
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const [data, setData] = useState({});
-
-    // data posting to server 
-    const postData = async (data) => {
-        const res = await fetch('/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await res.json();
-        console.log(result)
-        if (result.status === 422) {
-            window.alert('Invalid Credentials !')
-        }else{
-            console.log('success')
-            history.push('/')
-        }
-    }
 
     // onSubmit handle event 
     const onSubmit = (data) => {
         setData(data);
-        postData(data)
+        
+         setInterval(() => {
+            reset()
+          }, 1000);
+         
+        const status = postData(data, '/signin')
+        status.then((status) => {
+            if (status === 200) {
+                history.push('/')
+            }
+        })
     };
 
 

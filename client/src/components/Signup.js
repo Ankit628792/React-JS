@@ -1,41 +1,31 @@
 import React, { useState } from 'react'
-import { NavLink ,useHistory} from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useForm } from "react-hook-form";
+import postData from '../requests/postData'
 
 const Signup = () => {
 
     const history = useHistory()
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({reValidateMode: 'onChange'});
 
     const [data, setData] = useState({});
 
-    // data posting to server 
-    const postData = async (data) => {
-        const res = await fetch('/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        console.log('data posted')
-        
-        const result = await res.json();
-        if (result.status !== 201) {
-            window.alert('Invalid Registration !')
-        }else{
-            history.push('/signin')
-        }
-    }
-
     // onSubmit handle event 
-    const onSubmit = (data) => {
+    const onSubmit = (data, e) => {
         setData(data);
         if (data.password === data.cpassword) {
-            console.log('data is sending')
-            postData(data)
+            
+         setInterval(() => {
+            reset()
+          }, 1000);
+         
+            console.log('registering user ...')
+            const status = postData(data, '/signup')
+            status.then((status) => {
+                if (status === 201) {
+                    history.push('/signin')
+                }
+            })
         }
     };
 
@@ -52,7 +42,7 @@ const Signup = () => {
                         <div className="inputBx">
                             <span>Full Name</span>
                             <input type="text" {...register("fullname", { required: 'Please enter your first name' })} />
-                            {errors.fullname && <p>{errors.fullname.message}</p>}
+                            {errors.fullname && <p className="text-danger">{errors.fullname.message}</p>}
                         </div>
                         <div className="inputBx">
                             <span>Email id</span>
@@ -66,18 +56,18 @@ const Signup = () => {
                                 required: "Please enter Password",
                                 minLength: { value: 6, message: "Too short" }
                             })} />
-                            {errors.password && <p>{errors.password.message}</p>}
+                            {errors.password &&  <p className="text-danger">{errors.password.message}</p>}
                         </div>
                         <div className="inputBx">
                             <span>Confirm Password</span>
                             <input type="password" {...register("cpassword", {
                                 required: 'Password Not Matched',
                             })} />
-                            {data.password !== data.cpassword && <p>{"Pass doesn't matched"}</p>}
+                            {data.password !== data.cpassword && <p className="text-danger">{"Pass doesn't matched"}</p>}
                         </div>
 
                         <div className="inputBx">
-                            <input type="submit" value="Sign Up" />
+                            <input type="submit" value="Sign Up" title="Signup" />
                         </div>
                         <div className="inputBx">
                             <p>Already have an account? <NavLink className="signupnav" to="/signin">Sign In</NavLink></p>

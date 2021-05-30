@@ -13,20 +13,20 @@ const Comment = require('../model/userComment');
 
 router.post('/signup', async (req, res) => {
     const { fullname, email, password, cpassword } = req.body;
-    
+
     if (!fullname || !email || !password || !cpassword) {
         return res.status(422).json({ error: "Fill all the fields" })
     }
-    
-    try{
+
+    try {
         const userExist = await User.findOne({ email: email });
-        if(userExist){
+        if (userExist) {
             return res.status(422).json({ error: "Email already exist" })
-        }else if(password !== cpassword){
+        } else if (password !== cpassword) {
             return res.status(422).json({ error: "Password doesn't matched" })
-        }else{
+        } else {
             const userId = new Date().getTime().toString();
-            const user = new User({userId, fullname, email, password, cpassword});
+            const user = new User({ userId, fullname, email, password, cpassword });
             try {
                 const userRegister = await user.save()
                 res.status(201).json({ message: "user registered successfully" });
@@ -41,53 +41,53 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
-    const {email,password } = req.body;
-    
+    const { email, password } = req.body;
+
     if (!email || !password) {
         return res.status(422).json({ error: "Fill all the fields" })
     }
 
     try {
-        const userLogin = await User.findOne({email: email})
+        const userLogin = await User.findOne({ email: email })
         // console.log('user login' + userLogin)
-        if(userLogin){
-        const isMatch = await bcrypt.compare(password, userLogin.password)
+        if (userLogin) {
+            const isMatch = await bcrypt.compare(password, userLogin.password)
 
-        const token = await userLogin.generateAuthToken();
-        // console.log('login token ' + token)
+            const token = await userLogin.generateAuthToken();
+            // console.log('login token ' + token)
 
-        res.cookie('jwtoken', token, {
-            expires: new Date(Date.now() + 1000*60*10),
-            httpOnly: true
-        })
+            res.cookie('jwtoken', token, {
+                expires: new Date(Date.now() + 1000 * 60 * 10),
+                httpOnly: true
+            })
 
-        if(!isMatch){
-            res.status(400).json({error : 'signin error'})
-        }else{
-        res.json({message: 'User sign in successfully'})
+            if (!isMatch) {
+                res.status(400).json({ error: 'signin error' })
+            } else {
+                res.status(200).json({ message: 'User sign in successfully' })
+            }
         }
-    }
     } catch (error) {
         console.log(error)
     }
-    
+
 })
 
 
-router.get('/about', Authenticate, (req,res) => {
-    res.send(req.rootUser)
+router.get('/about', Authenticate, (req, res) => {
+    res.status(200).send(req.rootUser)
 })
 
-router.get('/contact', Authenticate, (req,res) => {
-    res.send(req.rootUser)
+router.get('/contact', Authenticate, (req, res) => {
+    res.status(200).send(req.rootUser)
 })
 
-router.post('/comments', async (req,res) => {
-    const {userId, fullname, email ,comment} = req.body;
-    try{    
-            const userComment = new Comment({userId, fullname, email, comment});
-            const commentRegistered = await userComment.save();        
-            res.status(200).send('Message sent')
+router.post('/comments', async (req, res) => {
+    const { userId, fullname, email, comment } = req.body;
+    try {
+        const userComment = new Comment({ userId, fullname, email, comment });
+        const commentRegistered = await userComment.save();
+        res.status(201).send('Message sent')
     }
     catch (error) {
         console.log(error)
