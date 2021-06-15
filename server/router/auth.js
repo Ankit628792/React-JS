@@ -81,6 +81,10 @@ router.get('/about', Authenticate, (req, res) => {
 router.get('/contact', Authenticate, (req, res) => {
     res.status(200).send(req.rootUser)
 })
+router.get('/signout', (req, res) => {
+res.clearCookie('jwtoken', {path: '/'})
+    res.status(200).send('user signout')
+})
 
 router.post('/comments', async (req, res) => {
     const { userId, fullname, email, comment } = req.body;

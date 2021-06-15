@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { UserContext } from '../App'
 const Navbar = () => {
+
+    const { state, dispatch } = useContext(UserContext);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -14,8 +18,14 @@ const Navbar = () => {
                             <NavLink className="nav-link active" to="/">Home</NavLink>
                             <NavLink className="nav-link" to="/about">About</NavLink>
                             <NavLink className="nav-link" to="/contact">Contact</NavLink>
-                            <NavLink className="nav-link" to="/signin">SignIn</NavLink>
-                            <NavLink className="nav-link" to="/signup">SignUp</NavLink>
+                            {
+                                state ?
+                                    <NavLink className="nav-link" to="/signout">Signout</NavLink> :
+                                    <>
+                                        <NavLink className="nav-link" to="/signin">SignIn</NavLink>
+                                        <NavLink className="nav-link" to="/signup">SignUp</NavLink>
+                                    </>
+                            }
                         </div>
                     </div>
                 </div>

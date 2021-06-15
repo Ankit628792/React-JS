@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import postData from '../requests/postData'
+import { UserContext } from '../App'
 
 const Signin = () => {
+
+    const {state, dispatch} = useContext(UserContext);
 
     const history = useHistory()
 
@@ -14,14 +17,11 @@ const Signin = () => {
     // onSubmit handle event 
     const onSubmit = (data) => {
         setData(data);
-        
-         setInterval(() => {
-            reset()
-          }, 1000);
-         
+      
         const status = postData(data, '/signin')
         status.then((status) => {
             if (status === 200) {
+                dispatch({type: 'USER', payload: true})
                 history.push('/')
             }
         })
